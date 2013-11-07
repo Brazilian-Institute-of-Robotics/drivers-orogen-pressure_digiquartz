@@ -1,0 +1,18 @@
+name "digiquartz_pressure"
+
+import_types_from "base"
+using_library "digiquartz_pressure"
+
+task_context "Task" do
+    property("integration_time", "double", 0.088)
+
+    property("device", "std::string")
+    property("baudrate", "int", 9600)
+
+    output_port("pressure_psi", "double")
+    output_port("pressure_bar", "double")
+    output_port("depth_samples", "base::samples::RigidBodyState")
+    output_port("sample_periode", "double")
+    fd_driven
+end
+
