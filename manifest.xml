@@ -13,6 +13,6 @@
   <depend package="dummy-dependency-n-1" />
   <depend package="dummy-dependency-n" />
   -->
-  <depend package="drivers/digiquartz_pressure" />
+  <depend package="drivers/pressure_digiquartz" />
   <depend package="base/types" />
 </package>
