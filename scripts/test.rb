@@ -8,8 +8,8 @@ end
 
 Orocos.initialize
 
-Orocos::Process.run 'digiquartz_pressure::Task' => "task" do
-    driver = TaskContext.get 'task'
+Orocos::Process.run 'digiquartz_pressure::Task' => "digiquartz_pressure" do
+    driver = TaskContext.get 'digiquartz_pressure'
     #Orocos.log_all_ports
 
     driver.device = ARGV[0]
