@@ -6,7 +6,7 @@ using_library "digiquartz_pressure"
 task_context "Task" do
     property("integration_time", "double", 0.088)
 
-    property("device", "std::string")
+    property("device", "std::string", "/dev/ttyS0")
     property("baudrate", "int", 9600)
 
     output_port("pressure_psi", "double")
