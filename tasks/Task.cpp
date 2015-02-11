@@ -106,7 +106,7 @@ void Task::updateHook()
                 _pressure_bar.write(value * 0.06894757);
                 depth_sample.time = base::Time().now();
                 depth_sample.position(2) = (value-zero_value) * -0.7030696;
-                depth_sample.velocity(2) = (value-last_value) / (depth_sample.time-last_time).toSeconds();
+                depth_sample.velocity(2) = ((value-last_value) * -0.7030696) / (depth_sample.time-last_time).toSeconds();
                 _depth_samples.write(depth_sample);
                 _sample_periode.write((depth_sample.time-last_time).toSeconds());
 
