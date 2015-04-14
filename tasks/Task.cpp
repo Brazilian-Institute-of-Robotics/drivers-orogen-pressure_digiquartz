@@ -75,7 +75,7 @@ bool Task::startHook()
 
     driver.startAcquisition();
 
-    this->setZeroDepth();
+    //this->setZeroDepth();
 
     return true;
     
@@ -107,6 +107,9 @@ void Task::updateHook()
                 depth_sample.time = base::Time().now();
                 depth_sample.position(2) = (value-zero_value) * -0.7030696;
                 depth_sample.velocity(2) = ((value-last_value) * -0.7030696) / (depth_sample.time-last_time).toSeconds();
+                depth_sample.cov_position(2, 0) = 0.0000001;
+                depth_sample.cov_position(2, 1) = 0.0000001;
+                depth_sample.cov_position(2, 2) = 0.0000001;
                 _depth_samples.write(depth_sample);
                 _sample_periode.write((depth_sample.time-last_time).toSeconds());
 
