@@ -2,17 +2,30 @@ name "digiquartz_pressure"
 
 import_types_from "base"
 using_library "digiquartz_pressure"
+using_task_library "iodrivers_base"
 
 task_context "Task" do
+    subclasses "iodrivers_base::Task"
+    needs_configuration
+        
+    # integration time of measurements in the sensor
     property("integration_time", "double", 0.088)
+    
+    # Is in pure water 1000 kg/m^3, in saltwater about 1027 kg/m^3.
+    property("density_of_water", "double", 1027.0)
+    
+    # standard deviation of the measurements
+    property("sigma", "double", 0.01)
 
-    property("device", "std::string", "/dev/ttyS0")
-    property("baudrate", "int", 9600)
-
+    # Raw pressure measurement in psi
     output_port("pressure_psi", "double")
+    
+    # Raw pressure measurement in bar
     output_port("pressure_bar", "double")
+    
+    # Depth in water, relative to the surface
     output_port("depth_samples", "base::samples::RigidBodyState")
-    output_port("sample_periode", "double")
+    
     fd_driven
 end
 
