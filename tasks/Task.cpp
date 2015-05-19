@@ -93,7 +93,7 @@ void Task::stopHook()
 {
     TaskBase::stopHook();
     
-    // TODO stop acquisition?
+    driver->stopAcquisition();
 }
 
 void Task::cleanupHook()
