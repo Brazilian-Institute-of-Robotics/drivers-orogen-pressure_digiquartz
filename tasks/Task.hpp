@@ -29,6 +29,7 @@ namespace digiquartz_pressure {
     protected:
         
         const double psi2pa = 6894.75729; // pound per square inch (psi) to pascals (pa)
+        const double bar2pa = 100000; // bar to pascals (pa)
         const double psi2bar = 0.0689475729; // pound per square inch (psi) to bar
         const double gravity = 9.79766542; // Mean value of gravity in m/s^2
 

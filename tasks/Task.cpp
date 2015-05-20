@@ -23,12 +23,12 @@ void Task::processIO()
     double pressure;
     if(driver->readMeasurement(pressure))
     {
-        _pressure_psi.write(pressure);
-        _pressure_bar.write(pressure * psi2bar);
+        _pressure_psi.write(pressure / psi2bar);
+        _pressure_bar.write(pressure);
         base::samples::RigidBodyState depth_sample;
         depth_sample.invalidate();
         depth_sample.time = base::Time().now();
-        depth_sample.position.z() = -(pressure * psi2pa) / (_density_of_water.value() * gravity);
+        depth_sample.position.z() = -((pressure-1.0) * bar2pa) / (_density_of_water.value() * gravity);
         if(!last_measurement_time.isNull())
         {
             depth_sample.velocity(2) = (depth_sample.position.z() - last_measurement) / (depth_sample.time - last_measurement_time).toSeconds();
