@@ -5,6 +5,7 @@
 
 #include "digiquartz_pressure/TaskBase.hpp"
 #include <digiquartz_pressure/Driver.hpp>
+#include <boost/shared_ptr.hpp>
 
 namespace digiquartz_pressure {
 
@@ -26,13 +27,22 @@ namespace digiquartz_pressure {
     {
 	friend class TaskBase;
     protected:
+        
+        const double psi2pa = 6894.75729; // pound per square inch (psi) to pascals (pa)
+        const double bar2pa = 100000; // bar to pascals (pa)
+        const double psi2bar = 0.0689475729; // pound per square inch (psi) to bar
+        const double gravity = 9.79766542; // Mean value of gravity in m/s^2
 
-    int fd_device;
-    int count;
-    digiquartz_pressure::Driver driver;
-    double last_value;
-    base::Time last_time;
-    double zero_value;
+        boost::shared_ptr<digiquartz_pressure::Driver> driver;
+        double last_measurement;
+        base::Time last_measurement_time;
+
+
+        /** Called by iodrivers_base::Task when some data is available for
+         * processing
+         */
+        void processIO();
+    
     public:
         /** TaskContext constructor for Task
          * \param name Name of the task. This name needs to be unique to make it identifiable via nameservices.
@@ -108,11 +118,6 @@ namespace digiquartz_pressure {
          * before calling start() again.
          */
         void cleanupHook();
-        
-        /** This method sets the currently pressure as vale for 0m depth
-         *
-         */
-        void setZeroDepth();
     };
 }
 
