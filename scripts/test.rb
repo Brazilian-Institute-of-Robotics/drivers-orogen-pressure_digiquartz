@@ -1,10 +1,6 @@
 require 'orocos'
 include Orocos
 
-if !ARGV[0]
-    STDERR.puts "usage: test.rb 'serial://<device name>:<baud rate>'"
-    exit 1
-end
 
 Orocos.initialize
 
@@ -12,11 +8,13 @@ Orocos.run 'digiquartz_pressure::Task' => "digiquartz_pressure" do
     driver = TaskContext.get 'digiquartz_pressure'
     #Orocos.log_all_ports
 
-    driver.io_port = ARGV[0]
-    driver.integration_time = 0.188
+    puts 'applying config'
+    driver.apply_conf_file("/home/diego/flat_fish/dev/bundles/flat_fish/config/orogen/live/digiquartz_pressure::Task.yml", ['default'])
+    puts 'configuring....'
     driver.configure
+    puts 'starting'
     driver.start
 
-    Orocos.watch driver
+    Orocos.watch(driver)
 end
 

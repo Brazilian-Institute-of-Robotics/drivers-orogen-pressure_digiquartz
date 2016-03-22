@@ -59,8 +59,8 @@ bool Task::configureHook()
     if (!_io_port.value().empty())
         driver->open(_io_port.value());
     
-    driver->setIntegrationTime((int)(_integration_time.get()*1000.0));
-    _integration_time.set(((double)(driver->getIntegrationTime()))/1000.0);
+    //driver->setIntegrationTime((int)(_integration_time.get()*1000.0));
+    //_integration_time.set(((double)(driver->getIntegrationTime()))/1000.0);
 
     setDriver(driver.get());
     
@@ -93,7 +93,7 @@ void Task::stopHook()
 {
     TaskBase::stopHook();
     
-    driver->stopAcquisition();
+    //driver->stopAcquisition();
 }
 
 void Task::cleanupHook()
