@@ -28,7 +28,7 @@ void Task::processIO()
         base::samples::RigidBodyState depth_sample;
         depth_sample.invalidate();
         depth_sample.time = base::Time().now();
-        depth_sample.position.z() = -((pressure-1.0) * bar2pa) / (_density_of_water.value() * gravity);
+        depth_sample.position.z() = -((pressure-_atm_pressure.get()) * bar2pa) / (_density_of_water.value() * gravity);
         if(!last_measurement_time.isNull())
         {
             depth_sample.velocity(2) = (depth_sample.position.z() - last_measurement) / (depth_sample.time - last_measurement_time).toSeconds();

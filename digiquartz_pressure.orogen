@@ -7,6 +7,9 @@ using_task_library "iodrivers_base"
 task_context "Task" do
     subclasses "iodrivers_base::Task"
     needs_configuration
+
+    #Athmospherical pressure
+    property("atm_pressure", "double", 1.0)
         
     # integration time of measurements in the sensor
     property("integration_time", "double", 0.088)
